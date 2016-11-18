@@ -1,0 +1,131 @@
+﻿<Page
+    x:Class="slacklist.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:slacklist"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interop="using:Windows.UI.Xaml.Interop"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Style TargetType="Grid" x:Key="GridStyle">
+            <Setter Property="Background" Value="#443142"></Setter>
+        </Style>
+        <Style TargetType="Rectangle" x:Key="IndicatorStyle">
+            <Setter Property="Margin" Value="3"></Setter>
+            <Setter Property="Width" Value="45"></Setter>
+            <Setter Property="Height" Value="45"></Setter>
+            <Setter Property="RadiusX" Value="10"></Setter>
+            <Setter Property="RadiusY" Value="10"></Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="SquareButtonStyle">
+            <Setter Property="Background" Value="#0cb68f"></Setter>
+            <Setter Property="Width" Value="60"></Setter>
+            <Setter Property="Height" Value="70"></Setter>
+            <Setter Property="BorderBrush" Value="#555459"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="MaxWidth" Value="Infinity"></Setter>
+            <Setter Property="MaxHeight" Value="Infinity"></Setter>
+            <Setter Property="MinWidth" Value="20"></Setter>
+            <Setter Property="MinHeight" Value="20"></Setter>
+            <Setter Property="Margin" Value="6"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="TitleStlye">
+            <Setter Property="Foreground" Value="#ffffff"></Setter>
+            <Setter Property="FontSize" Value="45"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontFamily" Value="Fonts/Lato-Black.ttf#Lato Black"></Setter>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="NetworkStlye">
+            <Setter Property="Foreground" Value="#ffffff"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="TextAlignment" Value="Center"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontFamily" Value="Fonts/Lato-Black.ttf#Lato Black"></Setter>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="ListItemNameStyle">
+            <Setter Property="Foreground" Value="#443142"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="TextAlignment" Value="Left"></Setter>
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+            <Setter Property="FontFamily" Value="Fonts/Lato-Black.ttf#Lato Black"></Setter>
+        </Style>
+        <Style TargetType="TextBlock" x:Key="ListItemTitleStyle">
+            <Setter Property="Foreground" Value="#443142"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+            <Setter Property="TextAlignment" Value="Left"></Setter>
+            <Setter Property="FontFamily" Value="Fonts/Lato-Black.ttf#Lato Black"></Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Style="{StaticResource GridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Visibility="Visible" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="80"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Source="Images/MenuLogo.png" Grid.Column="0" Tapped="RefreshButton_Click"></Image>
+            <TextBlock Style="{StaticResource TitleStlye}" Grid.Column="1">#slacklist</TextBlock>
+            <Image Source="Images/feature.search.png" Grid.Column="2" Tapped="SearchButton_Click"></Image>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="BottomGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="16"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="SearchBox" Margin="12, 0, 12, 0" Grid.Row="0" TextChanged="SearchBox_TextChanged"></TextBox>
+            <Border Grid.Row="1">
+                <Border.Background>
+                    <SolidColorBrush Color="#fafafa"></SolidColorBrush>
+                </Border.Background>
+            </Border>
+            <ProgressRing x:Name="MainProgressRing" Background="#fafafa" Foreground="#e80d68" Grid.Row="1" IsActive="False"></ProgressRing>
+            <Image Visibility="Collapsed" HorizontalAlignment="Center" Width="250" VerticalAlignment="Center" x:Name="NoConnectionText" Grid.Row="1" Source="Images/TryAgain.png" ></Image>
+            <ListBox Visibility="Collapsed" x:Name="UserListBox" Grid.Row="1" ItemsSource="{Binding}" Tapped="UserListBox_Tapped" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="1" HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="400"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle Style="{StaticResource IndicatorStyle}" Grid.Column="0" Fill="{Binding Color}"></Rectangle>
+                            <Grid Grid.Column="1" HorizontalAlignment="Stretch">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Style="{StaticResource ListItemNameStyle}" Grid.Row="0" Text="{Binding Name}"></TextBlock>
+                                <TextBlock Style="{StaticResource ListItemTitleStyle}" Grid.Row="1"  Text="{Binding Title}"></TextBlock>
+                            </Grid>
+                            <StackPanel Grid.Column="1" HorizontalAlignment="Stretch">
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock>last updated:</TextBlock>
+                <TextBlock x:Name="LastUpdatedText">Never</TextBlock>
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</Page>

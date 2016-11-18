@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>cf482532-80c4-4ad1-89bf-b8b6b67cc805</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>slacklist</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Configurations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)StorageHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Users.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Fonts\Lato-Black.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Fonts\Lato-Bold.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Fonts\Lato-Italic.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Fonts\Lato-Regular.ttf" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\back.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\feature.search.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\MenuLogo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\TryAgain.png" />
+  </ItemGroup>
+</Project>
